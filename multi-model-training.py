@@ -19,10 +19,12 @@ import matplotlib.pyplot as plt
 from pycocotools.coco import COCO
 import cv2
 
-# Constants
-TRAIN_PATH = 'D:/Download/JDownloader/MSCOCO/images/train2017'
-VAL_PATH = 'D:/Download/JDownloader/MSCOCO/images/val2017'
-WORKING_DIR = 'D:/Projetos/Mestrado/2024_Topicos_Esp_Sist_Informacao/ARTIGO_FINAL/object_detection_model_compare/working'
+# Paths
+TRAIN_PATH = '/kaggle/input/coco-2017-dataset/coco2017/train2017'
+VAL_PATH = '/kaggle/input/coco-2017-dataset/coco2017/val2017'
+ANNOTATIONS_PATH = '/kaggle/input/coco-2017-dataset/coco2017/annotations'
+FILTERED_DATASET = '/kaggle/input/filtered-coco-dataset'
+WORKING_DIR = '/kaggle/working'
 FILTERED_CATEGORIES = ['person', 'cat', 'dog']
 
 class DataProcessor:
@@ -293,12 +295,12 @@ class MetricsEvaluator:
         
         plt.savefig(os.path.join(self.working_dir, f'combined_pr_{self.timestamp}.png'))
         plt.close()
-
+        
 def main():
     # Initialize data processor
     data_processor = DataProcessor(
-        os.path.join(WORKING_DIR, 'train_data.csv'),
-        os.path.join(WORKING_DIR, 'test_data.csv')
+        os.path.join(FILTERED_DATASET, 'train_data.csv'),
+        os.path.join(FILTERED_DATASET, 'test_data.csv')
     )
     
     # Initialize model trainer
@@ -327,4 +329,4 @@ def main():
     print("Training and evaluation complete. Results saved in working directory.")
 
 if __name__ == "__main__":
-    main()
+    main()        
